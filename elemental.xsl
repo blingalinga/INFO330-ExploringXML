@@ -2,8 +2,8 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <!-- "Find all Pokemon that have a type of "fire", "water", "flying", or "ground" -->
-<!-- SELECT COUNT(*) FROM pokemon_types_view 
-     WHERE type1 IN ('fire', 'water', 'flying', 'ground') 
+<!-- SELECT COUNT(*) FROM pokemon_types_view
+     WHERE type1 IN ('fire', 'water', 'flying', 'ground')
         OR type2 IN ('fire', 'water', 'flying', 'ground') = 328 Pokemon -->
 
 <xsl:template match="type[position() != last()]"><xsl:value-of select="text()"/>, </xsl:template>
@@ -19,11 +19,11 @@
   -->
 <!--
 <xsl:template match="/pokedex">
-    <xsl:apply-templates select="" />
+    <xsl:apply-templates select="pokemon[type[text()='fire' or text()='water' or text()='flying' or text()='ground']]" />
 </xsl:template>
 
 <xsl:template match="pokemon">
-    <xsl:value-of select="" /> (<xsl:value-of select="" />): <xsl:apply-templates select="type" /><xsl:text>
+    <xsl:value-of select="./name" /> (<xsl:value-of select="@pokedexNumber" />): <xsl:apply-templates select="type" /><xsl:text>
 </xsl:text>
 </xsl:template>
 -->
@@ -33,7 +33,7 @@
   the power of using XSLT to create pretty output from XML sources.
   -->
 <xsl:template match="/pokedex">
-  <xsl:variable name="pokemonResults" select="" />
+  <xsl:variable name="pokemonResults" select="pokemon[type[text()='fire' or text()='water' or text()='flying' or text()='ground']]" />
 
   <html>
   <body>
@@ -44,7 +44,7 @@
       <th>Name</th>
       <th>Type(s)</th>
     </tr>
-    <xsl:apply-templates select="pokemon[$pokemonResults]" />
+    <xsl:apply-templates select="$pokemonResults" />
   </table>
   </body>
   </html>
